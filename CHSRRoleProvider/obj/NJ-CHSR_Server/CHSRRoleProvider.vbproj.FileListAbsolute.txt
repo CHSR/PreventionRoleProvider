@@ -1,0 +1,8 @@
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\bin\NJ-CHSR_Server\CHSRRoleProvider.dll
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\bin\NJ-CHSR_Server\CHSRRoleProvider.pdb
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\bin\NJ-CHSR_Server\CHSRRoleProvider.xml
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\obj\NJ-CHSR_Server\CHSRRoleProvider.Resources.resources
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\obj\NJ-CHSR_Server\CHSRRoleProvider.vbproj.GenerateResource.Cache
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\obj\NJ-CHSR_Server\CHSRRoleProvider.dll
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\obj\NJ-CHSR_Server\CHSRRoleProvider.xml
+C:\Users\cp932249\Documents\GitHub\CHSRRoleProvider\CHSRRoleProvider\obj\NJ-CHSR_Server\CHSRRoleProvider.pdb
