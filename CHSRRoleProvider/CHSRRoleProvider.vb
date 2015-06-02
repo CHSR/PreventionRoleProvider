@@ -561,7 +561,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programfk, programsitefk FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programsitefk FROM UsersInRoles " & _
                 " WHERE Username = @Username AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -575,7 +575,7 @@ Public NotInheritable Class CHSRRoleProvider
             reader = cmd.ExecuteReader()
 
             Do While reader.Read()
-                tmpRoleNames &= reader.GetInt32(1).ToString() & ","
+                tmpRoleNames &= reader.GetInt32(0).ToString() & ","
             Loop
         Catch e As SqlException
             If WriteExceptionsToEventLog Then
