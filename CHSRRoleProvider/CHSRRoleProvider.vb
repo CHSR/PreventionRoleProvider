@@ -460,11 +460,20 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
+        'Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename " & _
+        '                                       " FROM UsersInRoles " & _
+        '                                       " INNER JOIN Users " & _
+        '                                       " ON Users.UserName = UsersInRoles.UserName " & _
+        '                                       " AND Program = ProgramFK " & _
+        '                                       " AND Role = Rolename " & _
+        '                                       " WHERE UsersInRoles.Username = @Username " & _
+        '                                       " AND UsersInRoles.ApplicationName = @ApplicationName", conn)
+
         Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename " & _
                                                " FROM UsersInRoles " & _
                                                " INNER JOIN Users " & _
                                                " ON Users.UserName = UsersInRoles.UserName " & _
-                                               " AND Program = ProgramFK " & _
+                                               " AND Users.ProgramSite = UsersInRoles.ProgramSiteFK " & _
                                                " AND Role = Rolename " & _
                                                " WHERE UsersInRoles.Username = @Username " & _
                                                " AND UsersInRoles.ApplicationName = @ApplicationName", conn)
@@ -508,11 +517,11 @@ Public NotInheritable Class CHSRRoleProvider
         Dim conn As SqlConnection = New SqlConnection(connectionString)
         Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM UsersInRoles " & _
                 " WHERE Username = @Username AND ApplicationName = @ApplicationName " & _
-                " AND programfk = @ProgramFK", conn)
+                " AND programsitefk = @ProgramSiteFK", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
         cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
-        cmd.Parameters.Add("@ProgramFK", SqlDbType.Int).Value = programfk
+        cmd.Parameters.Add("@ProgramSiteFK", SqlDbType.Int).Value = programfk
 
         Dim reader As SqlDataReader = Nothing
 
@@ -552,7 +561,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programfk FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programfk, programsitefk FROM UsersInRoles " & _
                 " WHERE Username = @Username AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -566,7 +575,7 @@ Public NotInheritable Class CHSRRoleProvider
             reader = cmd.ExecuteReader()
 
             Do While reader.Read()
-                tmpRoleNames &= reader.GetInt32(0).ToString() & ","
+                tmpRoleNames &= reader.GetInt32(1).ToString() & ","
             Loop
         Catch e As SqlException
             If WriteExceptionsToEventLog Then
