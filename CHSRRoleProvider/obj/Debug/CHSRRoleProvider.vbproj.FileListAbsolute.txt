@@ -49,6 +49,8 @@ C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\bin\D
 C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\bin\Debug\CHSRRoleProvider.xml
 C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.Resources.resources
 C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.vbproj.GenerateResource.Cache
+C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.vbproj.CoreCompileInputs.cache
 C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.dll
 C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.xml
 C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.pdb
+C:\Users\cp932249\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.vbprojAssemblyReference.cache
