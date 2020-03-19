@@ -865,7 +865,7 @@ Public NotInheritable Class CHSRRoleProvider
         End Try
     End Sub
 
-    Public Overloads Sub RemoveUsersFromRoles(ByVal usernames As String(), ByVal rolenames As String(), ByVal programfk As Integer)
+    Public Overloads Sub RemoveUsersFromRoles(ByVal usernames As String(), ByVal rolenames As String(), ByVal programsitefk As Integer)
 
         For Each rolename As String In rolenames
             If Not RoleExists(rolename) Then
@@ -873,23 +873,24 @@ Public NotInheritable Class CHSRRoleProvider
             End If
         Next
 
-        'For Each username As String In usernames
-        '    For Each rolename As String In rolenames
-        '        If Not IsUserInRole(username, rolename) Then
-        '            Throw New ProviderException("User is not in role.")
-        '        End If
-        '    Next
-        'Next
+
+        For Each username As String In usernames
+            For Each rolename As String In rolenames
+                If Not IsUserInRole(username, rolename) Then
+                    Throw New ProviderException("User is not in role.")
+                End If
+            Next
+        Next
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " & _
-                " WHERE Username = @Username AND Rolename = @Rolename AND ApplicationName = @ApplicationName " & _
-                " AND programfk = @ProgramFK", conn)
+        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " &
+                " WHERE Username = @Username AND Rolename = @Rolename AND ApplicationName = @ApplicationName " &
+                " AND programsitefk = @ProgramSiteFK", conn)
 
         Dim userParm As SqlParameter = cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255)
         Dim roleParm As SqlParameter = cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255)
         cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
-        cmd.Parameters.Add("@ProgramFK", SqlDbType.Int).Value = programfk
+        cmd.Parameters.Add("@ProgramSiteFK", SqlDbType.Int).Value = programsitefk
 
         Dim tran As SqlTransaction = Nothing
 
