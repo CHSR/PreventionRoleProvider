@@ -63,3 +63,13 @@ C:\Users\wo1065\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Deb
 C:\Users\wo1065\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.dll
 C:\Users\wo1065\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.xml
 C:\Users\wo1065\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.pdb
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\bin\Debug\CHSRRoleProvider.dll
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\bin\Debug\CHSRRoleProvider.pdb
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\bin\Debug\CHSRRoleProvider.xml
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.vbproj.AssemblyReference.cache
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.Resources.resources
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.vbproj.GenerateResource.cache
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.vbproj.CoreCompileInputs.cache
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.dll
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.xml
+C:\Users\annau\OneDrive\Documents\GitHub\PreventionRoleProvider\CHSRRoleProvider\obj\Debug\CHSRRoleProvider.pdb
