@@ -109,7 +109,7 @@ Public NotInheritable Class CHSRRoleProvider
         ' Initialize SqlConnection.
         '
 
-        pConnectionStringSettings = _
+        pConnectionStringSettings =
           ConfigurationManager.ConnectionStrings(config("connectionStringName"))
 
         If pConnectionStringSettings Is Nothing OrElse pConnectionStringSettings.ConnectionString.Trim() = "" Then
@@ -165,8 +165,8 @@ Public NotInheritable Class CHSRRoleProvider
 
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("INSERT INTO UsersInRoles " & _
-          " (Username, Rolename, ApplicationName) " & _
+        Dim cmd As SqlCommand = New SqlCommand("INSERT INTO UsersInRoles " &
+          " (Username, Rolename, ApplicationName) " &
           " Values(@Username, @Rolename, @ApplicationName)", conn)
 
         Dim userParm As SqlParameter = cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255)
@@ -227,8 +227,8 @@ Public NotInheritable Class CHSRRoleProvider
         Next
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("INSERT INTO UsersInRoles " & _
-          " (Username, Rolename, ApplicationName, programfk, ProgramSiteFK) " & _
+        Dim cmd As SqlCommand = New SqlCommand("INSERT INTO UsersInRoles " &
+          " (Username, Rolename, ApplicationName, programfk, ProgramSiteFK) " &
           " Values(@Username, @Rolename, @ApplicationName, @ProgramFK, @ProgramSiteFK)", conn)
 
         Dim userParm As SqlParameter = cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255)
@@ -285,8 +285,8 @@ Public NotInheritable Class CHSRRoleProvider
         End If
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("INSERT INTO Roles " & _
-                " (Rolename, ApplicationName) " & _
+        Dim cmd As SqlCommand = New SqlCommand("INSERT INTO Roles " &
+                " (Rolename, ApplicationName) " &
                 " Values(@Rolename, @ApplicationName)", conn)
 
         cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
@@ -322,14 +322,14 @@ Public NotInheritable Class CHSRRoleProvider
         End If
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM Roles " & _
+        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM Roles " &
                 " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
         cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
 
 
-        Dim cmd2 As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " & _
+        Dim cmd2 As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " &
                 " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName", conn)
 
         cmd2.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
@@ -376,7 +376,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM Roles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM Roles " &
                   " WHERE ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
@@ -415,8 +415,8 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM Roles " & _
-                  " WHERE ApplicationName = @ApplicationName " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM Roles " &
+                  " WHERE ApplicationName = @ApplicationName " &
                   " AND programfk = @ProgramFK", conn)
 
         cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
@@ -469,13 +469,13 @@ Public NotInheritable Class CHSRRoleProvider
         '                                       " WHERE UsersInRoles.Username = @Username " & _
         '                                       " AND UsersInRoles.ApplicationName = @ApplicationName", conn)
 
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename " & _
-                                               " FROM UsersInRoles " & _
-                                               " INNER JOIN Users " & _
-                                               " ON Users.UserName = UsersInRoles.UserName " & _
-                                               " AND Users.ProgramSite = UsersInRoles.ProgramSiteFK " & _
-                                               " AND Role = Rolename " & _
-                                               " WHERE UsersInRoles.Username = @Username " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename " &
+                                               " FROM UsersInRoles " &
+                                               " INNER JOIN Users " &
+                                               " ON Users.UserName = UsersInRoles.UserName " &
+                                               " AND Users.ProgramSite = UsersInRoles.ProgramSiteFK " &
+                                               " AND Role = Rolename " &
+                                               " WHERE UsersInRoles.Username = @Username " &
                                                " AND UsersInRoles.ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -515,8 +515,8 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM UsersInRoles " & _
-                " WHERE Username = @Username AND ApplicationName = @ApplicationName " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Rolename FROM UsersInRoles " &
+                " WHERE Username = @Username AND ApplicationName = @ApplicationName " &
                 " AND programsitefk = @ProgramSiteFK", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -561,7 +561,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpRoleNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programsitefk FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programsitefk FROM UsersInRoles " &
                 " WHERE Username = @Username AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -597,6 +597,45 @@ Public NotInheritable Class CHSRRoleProvider
         Return New String() {}
     End Function
 
+    Public Function GetProgramsByRole(ByVal username As String, ByVal role As String) As String()
+        Dim tmpRoleNames As String = ""
+
+        Dim conn As SqlConnection = New SqlConnection(connectionString)
+        Dim cmd As SqlCommand = New SqlCommand("SELECT programsitefk FROM UsersInRoles " & "WHERE Username = @Username AND Rolename=@Rolename", conn)
+
+        cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
+        cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = role
+
+        Dim reader As SqlDataReader = Nothing
+
+        Try
+            conn.Open()
+
+            reader = cmd.ExecuteReader()
+
+            Do While reader.Read()
+                tmpRoleNames &= reader.GetInt32(0).ToString() & ","
+            Loop
+        Catch e As SqlException
+            If WriteExceptionsToEventLog Then
+                WriteToEventLog(e, "GetProgramsByRole")
+            Else
+                Throw e
+            End If
+        Finally
+            If Not reader Is Nothing Then reader.Close()
+            conn.Close()
+        End Try
+
+        If tmpRoleNames.Length > 0 Then
+            ' Remove trailing comma.
+            tmpRoleNames = tmpRoleNames.Substring(0, tmpRoleNames.Length - 1)
+            Return tmpRoleNames.Split(CChar(","))
+        End If
+
+        Return New String() {}
+    End Function
+
     '
     ' RoleProvider.GetUsersInRole
     '
@@ -605,7 +644,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpUserNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " &
                   " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
@@ -645,8 +684,8 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpUserNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " & _
-                  " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " &
+                  " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName " &
                   " AND programfk = @ProgramFK", conn)
 
         cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
@@ -691,7 +730,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim tmpUserNames As String = ""
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " &
                   " WHERE programfk = @ProgramFK AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@ProgramFK", SqlDbType.Int).Value = programfk
@@ -736,8 +775,8 @@ Public NotInheritable Class CHSRRoleProvider
         Dim userIsInRole As Boolean = False
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM UsersInRoles " & _
-                                               " WHERE Username = @Username " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM UsersInRoles " &
+                                               " WHERE Username = @Username " &
                                                "AND Rolename = @Rolename AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -774,7 +813,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim userIsInRole As Boolean = False
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM UsersInRoles " &
                 " WHERE Username = @Username AND programfk = @ProgramFK AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
@@ -823,9 +862,9 @@ Public NotInheritable Class CHSRRoleProvider
         Next
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " & _
-                " WHERE Username = @Username " & _
-                " AND Rolename = @Rolename " & _
+        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " &
+                " WHERE Username = @Username " &
+                " AND Rolename = @Rolename " &
                 " AND ApplicationName = @ApplicationName", conn)
 
         Dim userParm As SqlParameter = cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255)
@@ -938,7 +977,7 @@ Public NotInheritable Class CHSRRoleProvider
         Next
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " & _
+        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " &
                 " WHERE Username = @Username AND programfk = @ProgramFK AND ApplicationName = @ApplicationName", conn)
 
         Dim userParm As SqlParameter = cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255)
@@ -983,7 +1022,7 @@ Public NotInheritable Class CHSRRoleProvider
         Dim exists As Boolean = False
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM Roles " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM Roles " &
                   " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName", conn)
 
         cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
@@ -1014,8 +1053,8 @@ Public NotInheritable Class CHSRRoleProvider
         Dim exists As Boolean = False
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM Roles " & _
-                  " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM Roles " &
+                  " WHERE Rolename = @Rolename AND ApplicationName = @ApplicationName " &
                   " AND programfk = @ProgramFK", conn)
 
         cmd.Parameters.Add("@Rolename", SqlDbType.VarChar, 255).Value = rolename
@@ -1050,7 +1089,7 @@ Public NotInheritable Class CHSRRoleProvider
     Public Overrides Function FindUsersInRole(ByVal rolename As String, ByVal usernameToMatch As String) As String()
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles  " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles  " &
                   "WHERE Username LIKE @UsernameSearch AND RoleName = @RoleName AND ApplicationName = @ApplicationName", conn)
         cmd.Parameters.Add("@UsernameSearch", SqlDbType.VarChar, 255).Value = usernameToMatch
         cmd.Parameters.Add("@RoleName", SqlDbType.VarChar, 255).Value = rolename
@@ -1091,8 +1130,8 @@ Public NotInheritable Class CHSRRoleProvider
     Public Overloads Function FindUsersInRole(ByVal rolename As String, ByVal usernameToMatch As String, ByVal programfk As Integer) As String()
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles  " & _
-                  "WHERE Username LIKE @UsernameSearch AND RoleName = @RoleName AND ApplicationName = @ApplicationName " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles  " &
+                  "WHERE Username LIKE @UsernameSearch AND RoleName = @RoleName AND ApplicationName = @ApplicationName " &
                   " AND programfk = @ProgramFK", conn)
         cmd.Parameters.Add("@UsernameSearch", SqlDbType.VarChar, 255).Value = usernameToMatch
         cmd.Parameters.Add("@RoleName", SqlDbType.VarChar, 255).Value = rolename
@@ -1138,7 +1177,7 @@ Public NotInheritable Class CHSRRoleProvider
     Public Function FindUsersInProgram(ByVal programfk As Integer, ByVal usernameToMatch As String) As String()
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
-        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles  " & _
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles  " &
                   "WHERE Username LIKE @UsernameSearch AND programfk = @ProgramFK AND ApplicationName = @ApplicationName", conn)
         cmd.Parameters.Add("@UsernameSearch", SqlDbType.VarChar, 255).Value = usernameToMatch
         cmd.Parameters.Add("@ProgramFK", SqlDbType.Int).Value = programfk
