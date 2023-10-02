@@ -767,6 +767,51 @@ Public NotInheritable Class CHSRRoleProvider
     End Function
 
     '
+    ' RoleProvider.GetUsersInProgramSite
+    '
+
+    Public Function GetUsersInProgramSite(ByVal programsitefk As Integer) As String()
+        Dim tmpUserNames As String = ""
+
+        Dim conn As SqlConnection = New SqlConnection(connectionString)
+        Dim cmd As SqlCommand = New SqlCommand("SELECT Username FROM UsersInRoles " &
+                  " WHERE ProgramSiteFK = @ProgramSiteFK AND ApplicationName = @ApplicationName", conn)
+
+        cmd.Parameters.Add("@ProgramSiteFK", SqlDbType.Int).Value = programsitefk
+        cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
+
+        Dim reader As SqlDataReader = Nothing
+
+        Try
+            conn.Open()
+
+            reader = cmd.ExecuteReader()
+
+            Do While reader.Read()
+                tmpUserNames &= reader.GetString(0) & ","
+            Loop
+        Catch e As SqlException
+            If WriteExceptionsToEventLog Then
+                WriteToEventLog(e, "GetUsersInProgram")
+            Else
+                Throw e
+            End If
+        Finally
+            If Not reader Is Nothing Then reader.Close()
+            conn.Close()
+        End Try
+
+        If tmpUserNames.Length > 0 Then
+            ' Remove trailing comma.
+            tmpUserNames = tmpUserNames.Substring(0, tmpUserNames.Length - 1)
+            Return tmpUserNames.Split(CChar(","))
+        End If
+
+        Return New String() {}
+    End Function
+
+
+    '
     ' RoleProvider.IsUserInRole
     '
 
@@ -794,6 +839,43 @@ Public NotInheritable Class CHSRRoleProvider
         Catch e As SqlException
             If WriteExceptionsToEventLog Then
                 WriteToEventLog(e, "IsUserInRole")
+            Else
+                Throw e
+            End If
+        Finally
+            conn.Close()
+        End Try
+
+        Return userIsInRole
+    End Function
+
+    '
+    ' RoleProvider.IsUserInProgramSite
+    '
+
+    Public Function IsUserInProgramSite(ByVal username As String, ByVal programsitefk As Integer) As Boolean
+
+        Dim userIsInRole As Boolean = False
+
+        Dim conn As SqlConnection = New SqlConnection(connectionString)
+        Dim cmd As SqlCommand = New SqlCommand("SELECT COUNT(*) FROM UsersInRoles " &
+                " WHERE Username = @Username AND programsitefk = @ProgramSiteFK AND ApplicationName = @ApplicationName", conn)
+
+        cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
+        cmd.Parameters.Add("@ProgramSiteFK", SqlDbType.Int).Value = programsitefk
+        cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
+
+        Try
+            conn.Open()
+
+            Dim numRecs As Integer = CType(cmd.ExecuteScalar(), Integer)
+
+            If numRecs > 0 Then
+                userIsInRole = True
+            End If
+        Catch e As SqlException
+            If WriteExceptionsToEventLog Then
+                WriteToEventLog(e, "IsUserInProgram")
             Else
                 Throw e
             End If
@@ -963,6 +1045,58 @@ Public NotInheritable Class CHSRRoleProvider
             conn.Close()
         End Try
     End Sub
+
+
+    '
+    ' RoleProvider.RemoveUsersFromProgramSite
+    '
+
+    Public Sub RemoveUsersFromProgramSite(ByVal usernames As String(), ByVal programsitefk As Integer)
+
+        For Each username As String In usernames
+            If Not IsUserInProgramSite(username, programsitefk) Then
+                Throw New ProviderException("User is not in program.")
+            End If
+        Next
+
+        Dim conn As SqlConnection = New SqlConnection(connectionString)
+        Dim cmd As SqlCommand = New SqlCommand("DELETE FROM UsersInRoles " &
+                " WHERE Username = @Username AND programsitefk = @ProgramSiteFK AND ApplicationName = @ApplicationName", conn)
+
+        Dim userParm As SqlParameter = cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255)
+        cmd.Parameters.Add("@ProgramSiteFK", SqlDbType.Int).Value = programsitefk
+        cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
+
+        Dim tran As SqlTransaction = Nothing
+
+        Try
+            conn.Open()
+            tran = conn.BeginTransaction
+            cmd.Transaction = tran
+
+            For Each username As String In usernames
+                userParm.Value = username
+                cmd.ExecuteNonQuery()
+            Next
+
+            tran.Commit()
+        Catch e As SqlException
+            Try
+                tran.Rollback()
+            Catch
+            End Try
+
+
+            If WriteExceptionsToEventLog Then
+                WriteToEventLog(e, "RemoveUsersFromProgram")
+            Else
+                Throw e
+            End If
+        Finally
+            conn.Close()
+        End Try
+    End Sub
+
 
     '
     ' RoleProvider.RemoveUsersFromProgram
