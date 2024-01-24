@@ -562,7 +562,7 @@ Public NotInheritable Class CHSRRoleProvider
 
         Dim conn As SqlConnection = New SqlConnection(connectionString)
         Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT programsitefk FROM UsersInRoles " &
-                " WHERE Username = @Username AND ApplicationName = @ApplicationName", conn)
+                " WHERE Username = @Username AND ApplicationName = @ApplicationName order by leadagencyname", conn)
 
         cmd.Parameters.Add("@Username", SqlDbType.VarChar, 255).Value = username
         cmd.Parameters.Add("@ApplicationName", SqlDbType.VarChar, 255).Value = ApplicationName
